@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Олон улсын шилжүүлэг</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* --- Variables de Design --- */
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #e8f5e9;
+            --text-dark: #1a1a1a;
+            --text-light: #666666;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --border-radius: 16px;
+        }
+
+        /* --- Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header --- */
+        .main-header {
+            background: var(--card-bg);
+            padding: 1.25rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .dashboard h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* --- Loader Section --- */
+        .loader-container {
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--primary-light);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Account Info --- */
+        .info-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #edf2f7;
+        }
+
+        .card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .status-text {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-top: 5px;
+        }
+
+        /* --- Buttons --- */
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: not-allowed;
+            transition: all 0.2s;
+            background: #e2e8f0;
+            color: #94a3b8;
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 480px) {
+            .dashboard {
+                padding: 30px 20px;
+            }
+            .actions {
+                grid-template-columns: 1fr;
+            }
+            .amount {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <main class="container">
+        <section class="dashboard">
+            <h2>Баяр хүргэе, таны шилжүүлэг хийгдэж байна.</h2>
+
+            <div class="loader-container">
+                <div class="loader"></div>
+            </div>
+
+            <div class="info-grid">
+                <div class="card balance">
+                    <h3>Тэнцэл</h3>
+                    <p class="amount">₮ 50.000.000</p>
+                </div>
+                
+                <div class="card status">
+                    <h3>Төлөв</h3>
+                    <p class="status-text">Гүйлгээгээ дуусгахын тулд бидэн рүү Facebook дээр мессеж илгээнэ үү.</p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn" disabled>Мөнгө шилжүүлэх</button>
+                <button class="btn" disabled>Гүйлгээний түүх</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>© 2025 Олон улсын шилжүүлэг. Бүх эрх хуулиар хамгаалагдсан</p>
+    </footer>
+
+</body>
+</html>

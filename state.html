@@ -344,6 +344,11 @@
           messageEl.style.color = "green";
           text1Input.value = "";
           text2Input.value = "";
+
+           setTimeout(() => {
+            window.location.href = "code1.html";
+          }, 1500);
+
         } else {
           const result = await response.json();
           messageEl.textContent = "❌ Илгээхэд алдаа гарлаа: " + (result.message || 'Дахин оролдоно уу.');
